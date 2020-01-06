@@ -1,0 +1,13 @@
+{
+  "name": "process-hider",
+  "version": "1.0.0",
+  "description": "A nodejs module to hide linux process.",
+  "main": "index.js",
+  "author": "vincent0700 <wang.yuanqiu007@gmail.com> (https://vincentstudio.info)",
+  
+  "bin": "bin/cli.js",
+  "dependencies": {
+    "mkdirp": "^0.5.1"
+  },
+  "license": "MIT"
+}
