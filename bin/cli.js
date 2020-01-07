@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
+require("colors");
+
+const fs = require("fs");
 const path = require("path");
 const shell = require("shelljs");
 const cmd = require("commander");
-const colors = require("colors");
 const jf = require("jsonfile");
 const Table = require("cli-table");
 const { formatDate } = require("../src/tools");
@@ -17,6 +19,8 @@ const package = jf.readFileSync(packageFilePath);
 const MAX_CMD_LENGHT = 80;
 const DUMP_JSON_SPACES = 2;
 
+console.log(fs.readFileSync(path.resolve(__dirname, "./logo.txt"), "utf8").cyan);
+
 let cache = { filters: [] };
 
 function saveCache() {
@@ -25,11 +29,22 @@ function saveCache() {
 
 function createTable() {
   return new Table({
-    chars: { 
-      "top": "═" , "top-mid": "╤" , "top-left": "╔" , "top-right": "╗",
-      "bottom": "═" , "bottom-mid": "╧" , "bottom-left": "╚" , "bottom-right": "╝",
-      "left": "║" , "left-mid": "╟" , "mid": "─" , "mid-mid": "┼",
-      "right": "║" , "right-mid": "╢" , "middle": "│" 
+    chars: {
+      top: "═",
+      "top-mid": "╤",
+      "top-left": "╔",
+      "top-right": "╗",
+      bottom: "═",
+      "bottom-mid": "╧",
+      "bottom-left": "╚",
+      "bottom-right": "╝",
+      left: "║",
+      "left-mid": "╟",
+      mid: "─",
+      "mid-mid": "┼",
+      right: "║",
+      "right-mid": "╢",
+      middle: "│"
     }
   });
 }
@@ -54,12 +69,12 @@ cmd
   .action(() => {
     const table = createTable();
     table.push(
-        ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
-        ...cache.filters.map((item, index) => [
-          index.toString(),
-          item.name,
-          item.uptime
-        ])
+      ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
+      ...cache.filters.map((item, index) => [
+        index.toString(),
+        item.name,
+        item.uptime
+      ])
     );
     console.log(table.toString());
   });
@@ -67,7 +82,7 @@ cmd
 cmd
   .command("add <name>")
   .description("add filter by process name")
-  .action((processName) => {
+  .action(processName => {
     let isRepeated = false;
     for (let item of cache.filters) {
       if (item.name === processName) {
@@ -77,12 +92,15 @@ cmd
       }
     }
     if (!isRepeated) {
-      let stdout = shell.exec(`ps -ef | grep "${processName}" | grep -v grep | grep -v 'ph add'`, { silent: true }).stdout;
+      let stdout = shell.exec(
+        `ps -ef | grep "${processName}" | grep -v grep | grep -v 'ph add'`,
+        { silent: true }
+      ).stdout;
       let logs = [];
-      stdout.split("\n").forEach((item) => {
+      stdout.split("\n").forEach(item => {
         const data = item.trim().replace(/\ +/g, " ");
         const splitData = data.split(" ");
-        if(splitData && splitData.length > 7) {
+        if (splitData && splitData.length > 7) {
           logs.push({
             UID: splitData[0],
             PID: splitData[1],
@@ -92,7 +110,7 @@ cmd
             TTY: splitData[5],
             TIME: splitData[6],
             CMD: data.split(splitData[6])[1].trim()
-          })
+          });
         }
       });
       cache.filters.push({
@@ -105,12 +123,12 @@ cmd
 
       const table = createTable();
       table.push(
-          ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
-          ...cache.filters.map((item, index) => [
-            index.toString(),
-            item.name,
-            item.uptime
-          ])
+        ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
+        ...cache.filters.map((item, index) => [
+          index.toString(),
+          item.name,
+          item.uptime
+        ])
       );
       console.log(table.toString());
     }
@@ -119,11 +137,11 @@ cmd
 cmd
   .command("delete <id>")
   .description("delete filter by id")
-  .action((id) => {
+  .action(id => {
     const index = parseInt(id);
 
     if (!cache.filters[index]) {
-      console.log(`Cannot find process fillter where id is ${id}.`)
+      console.log(`Cannot find process fillter where id is ${id}.`);
       return;
     }
 
@@ -133,37 +151,39 @@ cmd
 
     const table = createTable();
     table.push(
-        ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
-        ...cache.filters.map((item, index) => [
-          index.toString(),
-          item.name,
-          item.uptime
-        ])
+      ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
+      ...cache.filters.map((item, index) => [
+        index.toString(),
+        item.name,
+        item.uptime
+      ])
     );
     console.log(table.toString());
-  })
+  });
 
 cmd
   .command("logs <id>")
   .description("show ps info when created filter")
-  .action((id) => {
+  .action(id => {
     const index = parseInt(id);
     const table = createTable();
 
     if (!cache.filters[index]) {
-      console.log(`Cannot find process fillter where id is ${id}.`)
+      console.log(`Cannot find process fillter where id is ${id}.`);
       return;
     }
 
     table.push(
-        ["UID", "PID", "CPU", "TTY", "CMD"].map(item => item.brightMagenta),
-        ...cache.filters[index].logs.map((item) => [
-          item.UID,
-          item.PID,
-          item.CPU,
-          item.TTY,
-          item.CMD.length <= MAX_CMD_LENGHT ? item.CMD : item.CMD.substring(0, MAX_CMD_LENGHT - 3) + "..."
-        ])
+      ["UID", "PID", "CPU", "TTY", "CMD"].map(item => item.brightMagenta),
+      ...cache.filters[index].logs.map(item => [
+        item.UID,
+        item.PID,
+        item.CPU,
+        item.TTY,
+        item.CMD.length <= MAX_CMD_LENGHT
+          ? item.CMD
+          : item.CMD.substring(0, MAX_CMD_LENGHT - 3) + "..."
+      ])
     );
     console.log(table.toString());
   });
