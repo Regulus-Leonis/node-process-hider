@@ -1,6 +1,6 @@
 {
   "name": "node-process-hider",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "vincent0700 <wang.yuanqiu007@gmail.com> (https://vincentstudio.info)",
   "description": "A nodejs module to hide linux process.",
   "keywords": [
