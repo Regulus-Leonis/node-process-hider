@@ -32,6 +32,12 @@ function setDefine(str, key, value) {
   return str.replace(regexp, replaceStr);
 }
 
+/**
+ * @name formatDate
+ * @description 格式化日期
+ * @param {Date} date 
+ * @param {String} fmt 
+ */
 function formatDate(date, fmt) {
   var o = {
     "M+": date.getMonth() + 1,
