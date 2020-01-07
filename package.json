@@ -1,7 +1,11 @@
 {
   "name": "node-process-hider",
   "version": "1.0.1",
-  "keywords": ["processhider", "process-hider", "process"],
+  "keywords": [
+    "processhider",
+    "process-hider",
+    "process"
+  ],
   "description": "A nodejs module to hide linux process.",
   "main": "index.js",
   "bin": {
