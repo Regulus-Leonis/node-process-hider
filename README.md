@@ -52,8 +52,7 @@ Hide process.
 [root@rp ~]# sudo ph add ssserver
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
-|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \
----------------------------------------------------------
+|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \  v1.0.3
 
 ╔════╤══════════╤═════════════════════╗
 ║ ID │ FILTER   │ UPTIME              ║
@@ -76,8 +75,7 @@ If you don't want the process to be hidden any more, you can use the following c
 [root@rp ~]# sudo ph delete 0
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
-|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \
----------------------------------------------------------
+|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \  v1.0.3
 
 ╔════╤════════╤════════╗
 ║ ID │ FILTER │ UPTIME ║
@@ -103,8 +101,7 @@ I will gradually complete the document. Please create an [Issue](https://github.
 [root@rp ~]# ph -h
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
-|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \
----------------------------------------------------------
+|    |  \ |__| |___ |___ ___] ___] |  | | |__/ |___ |  \  v1.0.3
 
 Usage: ph [options] [command]
 
@@ -116,9 +113,9 @@ Options:
 
 Commands:
   list           list process filters
-  add <name>     add filter by process name
-  delete <id>    delete filter by id
-  logs <id>      show ps info when created filter
+  add [name]     add filter by process name
+  delete [id]    delete filter by id
+  logs [id]      show ps info when created filter
   clean          uinstall lib module and cache file
 ```
 
