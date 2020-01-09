@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 require("colors");
-
 const fs = require("fs");
 const path = require("path");
 const shell = require("shelljs");
 const cmd = require("commander");
 const jf = require("jsonfile");
 const Table = require("cli-table");
+const { showHeader } = require("./header");
 const { formatDate } = require("../src/tools");
 const { setHideProcess, clean } = require("../index");
 
@@ -18,8 +18,6 @@ const package = jf.readFileSync(packageFilePath);
 
 const MAX_CMD_LENGHT = 80;
 const DUMP_JSON_SPACES = 2;
-
-console.log(fs.readFileSync(path.resolve(__dirname, "./logo.txt"), "utf8").cyan);
 
 let cache = { filters: [] };
 
@@ -69,7 +67,7 @@ cmd
   .action(() => {
     const table = createTable();
     table.push(
-      ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
+      ["ID", "FILTER", "UPTIME"].map(item => item.brightCyan.bold),
       ...cache.filters.map((item, index) => [
         index.toString(),
         item.name,
@@ -80,7 +78,7 @@ cmd
   });
 
 cmd
-  .command("add <name>")
+  .command("add [name]")
   .description("add filter by process name")
   .action(processName => {
     let isRepeated = false;
@@ -123,7 +121,7 @@ cmd
 
       const table = createTable();
       table.push(
-        ["ID", "FILTER", "UPTIME"].map(item => item.brightMagenta),
+        ["ID", "FILTER", "UPTIME"].map(item => item.brightCyan.bold),
         ...cache.filters.map((item, index) => [
           index.toString(),
           item.name,
@@ -135,7 +133,7 @@ cmd
   });
 
 cmd
-  .command("delete <id>")
+  .command("delete [id]")
   .description("delete filter by id")
   .action(id => {
     const index = parseInt(id);
@@ -162,7 +160,7 @@ cmd
   });
 
 cmd
-  .command("logs <id>")
+  .command("logs [id]")
   .description("show ps info when created filter")
   .action(id => {
     const index = parseInt(id);
@@ -174,10 +172,10 @@ cmd
     }
 
     table.push(
-      ["UID", "PID", "CPU", "TTY", "CMD"].map(item => item.brightMagenta),
+      ["PID", "UID", "CPU", "TTY", "CMD"].map(item => item.brightCyan.bold),
       ...cache.filters[index].logs.map(item => [
-        item.UID,
         item.PID,
+        item.UID,
         item.CPU,
         item.TTY,
         item.CMD.length <= MAX_CMD_LENGHT
@@ -195,4 +193,5 @@ cmd
     clean();
   });
 
+showHeader(package.version);
 cmd.parse(process.argv);
