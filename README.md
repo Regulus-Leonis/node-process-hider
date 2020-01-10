@@ -8,7 +8,7 @@ A nodejs cli tool for hiding linux process.
 [![npm](https://img.shields.io/npm/v/tail.svg?style=plastic)](https://www.npmjs.com/package/node-process-hider)
 ![npm](https://img.shields.io/npm/dm/node-process-hider.svg)
 
-## Precondition 
+## Environment 
 
 1. Linux only
 2. Make sure you have sudo privileges
