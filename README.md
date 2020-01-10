@@ -36,7 +36,7 @@ $ npm i -g node-process-hider
 
 For example, i want to hide process `ssserver`.
 
-```bash
+```text
 [root@rp ~]# ps -ef | grep ssserver | grep -v grep
 root  1582  1581  0 Jan06 ?  00:00:00 /usr/bin/python2 /usr/bin/ssserver -c /etc/shadowsocks.json
 root  1607  1582  0 Jan06 ?  00:00:01 /usr/bin/python2 /usr/bin/ssserver -c /etc/shadowsocks.json
@@ -47,14 +47,14 @@ root  1610  1582  0 Jan06 ?  00:00:02 /usr/bin/python2 /usr/bin/ssserver -c /etc
 
 If you are not sure of the process name. You can use the following command to get process name by pid.
 
-```bash
+```text
 [root@rp ~]# ps -p 1582 -o comm=
 ssserver
 ```
 
 Hide process.
 
-```bash
+```text
 [root@rp ~]# sudo ph add ssserver
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
@@ -69,7 +69,7 @@ ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 
 Now you can find this process is hidden.
 
-```bash
+```text
 [root@rp ~]# ps -ef | grep ssserver | grep -v grep
 ```
 
@@ -77,7 +77,7 @@ Now you can find this process is hidden.
 
 If you don't want the process to be hidden any more, you can use the following command.
 
-```bash
+```text
 [root@rp ~]# sudo ph delete 0
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
@@ -90,7 +90,7 @@ ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 
 Check!
 
-```bash
+```text
 [root@rp ~]# ps -ef | grep ssserver | grep -v grep
 root  1582  1581  0 Jan06 ?  00:00:00 /usr/bin/python2 /usr/bin/ssserver -c /etc/shadowsocks.json
 root  1607  1582  0 Jan06 ?  00:00:01 /usr/bin/python2 /usr/bin/ssserver -c /etc/shadowsocks.json
@@ -103,7 +103,7 @@ root  1610  1582  0 Jan06 ?  00:00:02 /usr/bin/python2 /usr/bin/ssserver -c /etc
 
 I will gradually complete the document. Please create an [Issue](https://github.com/Vincent0700/node-process-hider/issues) if you have problems when using this tool.
 
-```bash
+```text
 [root@rp ~]# ph -h
 ___  ____ ____ ____ ____ ____ ____ _  _ _ ___  ____ ____
 |__] |__/ |  | |    |___ [__  [__  |__| | |  \ |___ |__/
