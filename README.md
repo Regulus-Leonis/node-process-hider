@@ -2,7 +2,7 @@
 
 A nodejs cli tool for hiding linux process.
 
-[![NPM](https://nodei.co/npm/node-process-hider.png?downloads=true&downloadRank=true)](https://nodei.co/npm/node-process-hider.png?downloads=true&downloadRank=true)
+[![NPM](https://nodei.co/npm/node-process-hider.png?downloads=true&downloadRank=true)](https://www.npmjs.com/package/node-process-hider)
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vincent0700/node-process-hider/blob/master/LICENSE)
 [![npm](https://img.shields.io/npm/v/tail.svg?style=plastic)](https://www.npmjs.com/package/node-process-hider)
